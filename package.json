@@ -1,0 +1,17 @@
+{
+  "name": "mithril-viewmodel",
+  "version": "1.0.0",
+  "description": "Viewmodel extension for Mithril.",
+  "main": "mithril-viewmodel.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Martin Jiřička",
+  "license": "ISC",
+  "dependencies": {
+    "mithril": "^0.2.5"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2"
+  }
+}
