@@ -1,67 +1,65 @@
-var m = require('mithril');
+var m = require('mithril')
 
+function mithrilDeepCopy (obj) {
+  var result = {}
 
-function mithrilDeepCopy(obj) {
-    var result = {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      var prop = obj[key]
 
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            var prop = obj[key];
-
-            switch (typeof prop) {
-            case 'function':
-                // All function should be m.prop instances.
-                result[key] = m.prop(prop());
-                break;
-            case 'object':
-                result[key] = mithrilDeepCopy(prop);
-                break;
-            default:
-                // Simply copy the value.
-                result[key] = prop;
-            }
-        }
+      switch (typeof prop) {
+        case 'function':
+          // All function should be m.prop instances.
+          result[key] = m.prop(prop())
+          break
+        case 'object':
+          result[key] = mithrilDeepCopy(prop)
+          break
+        default:
+          // Simply copy the value.
+          result[key] = prop
+      }
     }
+  }
 
-    return result;
+  return result
 }
 
-var viewmodelFuncObj;
-var viewmodelCounter = 0;
+var viewmodelFuncObj
+var viewmodelCounter = 0
 
 function viewmodel (vmDefaults, propName) {
-    propName = propName || viewmodelFuncObj.propName.replace('%', viewmodelCounter++);
+  propName = propName || viewmodelFuncObj.propName.replace('%', viewmodelCounter++)
 
-    if (typeof vmDefaults !== 'object') {
-        throw Error('Viewmodel defaults object must be a JS object.');
+  if (typeof vmDefaults !== 'object') {
+    throw Error('Viewmodel defaults object must be a JS object.')
+  }
+
+  return function (model) {
+    if (typeof model !== 'object') {
+      throw Error('Model must be a JS object.')
     }
 
-    return function (model) {
-        if (typeof model !== 'object') {
-            throw Error('Model must be a JS object.');
-        }
+    var viewmodelObj = model[propName]
 
-        var viewmodelObj = model[propName];
+    if (viewmodelObj === undefined) {
+      // Create a new viewmodel.
+      viewmodelObj = mithrilDeepCopy(vmDefaults)
 
-        if (viewmodelObj === undefined) {
-            // Create a new viewmodel.
-            viewmodelObj = mithrilDeepCopy(vmDefaults);
+      // Assign it.
+      Object.defineProperty(model, propName, {
+        value: viewmodelObj,
+        enumerable: false,
+        writable: false
+      })
+    }
 
-            // Assign it.
-            Object.defineProperty(model, propName, {
-                value: viewmodelObj,
-                enumerable: false,
-                writable: false
-            });
-        }
-
-        return viewmodelObj;
-    };
+    return viewmodelObj
+  }
 };
 
-viewmodelFuncObj = viewmodel;
-viewmodel.propName = '__viewmodel_%__';
+viewmodelFuncObj = viewmodel
+viewmodel.propName = '__viewmodel_%__'
 
-
-module.exports = viewmodel;
+module.exports = viewmodel
 
