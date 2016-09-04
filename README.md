@@ -8,24 +8,30 @@ Here is an example of usage:
     
     var viewmodel = require('mithril-viewmodel.js')
 
-    // Here is defined a viewmodel with its default values.
-    var vm = viewmodel({
-        prop1: 42,
-        propObj: { // Properties can be nested.
-            prop2: 'hello',
-            prop3: m.prop('') // Function m.prop can be used.
-        },
-        propArr: [1, 2, 3] // Array can be also used.
-    })
+```js
+// Here is defined a viewmodel with its default values.
+var vm = viewmodel({
+    prop1: 42,
+    propObj: {  // Properties can be nested.
+        prop2: 'hello',
+        prop3: m.prop('')  // Function m.prop can be used.
+    },
+    propArr: [1, 2, 3]  // Array can be also used.
+})
 
-    var model = {a: 3}
+var model = {a: 3}
 
-    // Get a viewmodel for the model.
-    console.log(vm(model).propObj.prop2) // Prints "hello".
+// Get a viewmodel for the model.
+console.log(
+    vm(model).propObj.prop2   // Prints "hello".
+)
 
-    // Assign values to the viewmodel.
-    vm(model).propObj.prop3('initialized')
-    console.log(vm(model).propObj.prop3()) // Prints "initialized".
+// Assign values to the viewmodel.
+vm(model).propObj.prop3('initialized')
+console.log(
+    vm(model).propObj.prop3()  // Prints "initialized".
+)
+```
 
 For more examples, see tests please.
 
