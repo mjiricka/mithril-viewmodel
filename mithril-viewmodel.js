@@ -29,18 +29,26 @@ function mithrilDeepCopy(obj) {
 var viewmodelFuncObj;
 var viewmodelCounter = 0;
 
-function viewmodel (model, propName) {
+function viewmodel (vmDefaults, propName) {
     propName = propName || viewmodelFuncObj.propName.replace('%', viewmodelCounter++);
 
-    return function (obj) {
-        var viewmodelObj = obj[propName];
+    if (typeof vmDefaults !== 'object') {
+        throw Error('Viewmodel defaults object must be a JS object.');
+    }
+
+    return function (model) {
+        if (typeof model !== 'object') {
+            throw Error('Model must be a JS object.');
+        }
+
+        var viewmodelObj = model[propName];
 
         if (viewmodelObj === undefined) {
             // Create a new viewmodel.
-            viewmodelObj = mithrilDeepCopy(model);
+            viewmodelObj = mithrilDeepCopy(vmDefaults);
 
             // Assign it.
-            Object.defineProperty(obj, propName, {
+            Object.defineProperty(model, propName, {
                 value: viewmodelObj,
                 enumerable: false,
                 writable: false

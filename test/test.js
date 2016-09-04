@@ -161,6 +161,29 @@ describe('Viewmodel', function () {
         assert(vm(model1).key() === 0);
     })
 
+    it('throws error when user does not pass object', function () {
+        var error = false;
+
+        try {
+            viewmodel();
+            error = true;
+        } catch (ex) { }
+
+        assert (error === false);
+    })
+
+    it('throws error when user does not pass object as model', function () {
+        var error = false;
+        var vm = viewmodel({});
+
+        try {
+            vm();
+            error = true;
+        } catch (ex) { }
+
+        assert (error === false);
+    })
+
     it('name of a private property can be configured', function () {
         var vm = viewmodel({}, 'secret');
 
