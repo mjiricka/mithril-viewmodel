@@ -35,7 +35,7 @@ function viewmodel (vmDefaults, propName) {
     throw Error('Viewmodel defaults object must be a JS object.')
   }
 
-  return function (model) {
+  var f = function (model) {
     if (typeof model !== 'object') {
       throw Error('Model must be a JS object.')
     }
@@ -56,6 +56,12 @@ function viewmodel (vmDefaults, propName) {
 
     return viewmodelObj
   }
+
+  f.destroy = function (model) {
+    delete model[propName]
+  }
+
+  return f
 }
 
 viewmodel.propName = '__viewmodel_%__'

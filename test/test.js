@@ -183,6 +183,19 @@ describe('Viewmodel', function () {
     assert(error === false)
   })
 
+  it('can destroy viewmodel', function () {
+    var vm = viewmodel({}, '__vm__')
+    var model = {}
+
+    vm(model)
+
+    assert(model.__vm__ !== undefined)
+
+    vm.destroy(model)
+
+    assert(vm(model).__vm__ === undefined)
+  })
+
   it('accepts also array as viewmodel defaults object', function () {
     var vm = viewmodel([1, 2, 3])
 
