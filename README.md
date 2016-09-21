@@ -2,13 +2,13 @@
 
 Implementation of viewmodel library for Javascript MVC framework [Mithril](http://mithril.js.org/), that is based on article on Mithril's official blog [Mapping view models](http://lhorie.github.io/mithril-blog/mapping-view-models.html).
 
-Unlike an implementation that is proposed by author of the article, this module does not store mapping from model to viewmodel in a map, but it adds "secret" unwrittable read-only property to each model. Moreover it support nested viewmodel defaults and also it does not enforce m.prop for all its fields.
+Unlike an implementation that is proposed by author of the article, this module does not store mapping from model to viewmodel in a map, but it adds "secret" unenurable read-only property to each model. Moreover it supports nested viewmodel defaults and also it does not enforce  `m.prop` for all its fields.
 
 Here is an example of usage:
-    
-    var viewmodel = require('mithril-viewmodel.js')
 
 ```js
+var viewmodel = require('mithril-viewmodel.js')
+
 // Here is defined a viewmodel with its default values.
 var vm = viewmodel({
     prop1: 42,
@@ -36,7 +36,7 @@ console.log(
 For more examples, see tests please.
 
 Some additional notes:
- * Viewmodel must be always object.
+ * Viewmodel must be always a JS object.
  * In viewmodel defaults object, all properties that are functions (means all objects `obj` such as `typeof obj === 'function'`) must be instances of `m.prop`!
  * It for example means one cannot use `Date` type. But one can use `m.prop(new Date())`. (And access is as `vm(model).dateProp()`.)
  * Hack: but you can define something like: `viewmodel({key: () => keyCounter++})` to automatically assign key attributes! (And again, access them as `m.prop` property, e.g. `vm(obj).key()`.)
