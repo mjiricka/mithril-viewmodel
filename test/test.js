@@ -67,12 +67,12 @@ describe('Viewmodel', function () {
   })
 
   it('private property cannot be modified', function () {
-    var vm = viewmodel({test: 42})
+    var vm = viewmodel({test: 42}, '__vm__')
 
     var model = {}
     vm(model)
 
-    model.__viewmodel__ = {}
+    model.__vm__ = {}
 
     assert(vm(model).test === 42)
   })
