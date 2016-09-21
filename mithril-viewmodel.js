@@ -4,7 +4,7 @@ function mithrilDeepCopy (obj) {
   var result = Array.isArray(obj) ? [] : {}
 
   for (var key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       var prop = obj[key]
 
       switch (typeof prop) {
