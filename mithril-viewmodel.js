@@ -25,11 +25,11 @@ function mithrilDeepCopy (obj) {
   return result
 }
 
-var viewmodelFuncObj
+
 var viewmodelCounter = 0
 
 function viewmodel (vmDefaults, propName) {
-  propName = propName || viewmodelFuncObj.propName.replace('%', viewmodelCounter++)
+  propName = propName || viewmodel.propName.replace('%', viewmodelCounter++)
 
   if (typeof vmDefaults !== 'object') {
     throw Error('Viewmodel defaults object must be a JS object.')
@@ -58,8 +58,8 @@ function viewmodel (vmDefaults, propName) {
   }
 }
 
-viewmodelFuncObj = viewmodel
 viewmodel.propName = '__viewmodel_%__'
+
 
 module.exports = viewmodel
 
