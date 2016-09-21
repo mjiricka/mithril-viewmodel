@@ -183,6 +183,12 @@ describe('Viewmodel', function () {
     assert(error === false)
   })
 
+  it('accepts also array as viewmodel defaults object', function () {
+    var vm = viewmodel([1, 2, 3])
+
+    assert(vm({}).length === 3)
+  })
+
   it('name of a private property can be configured', function () {
     var vm = viewmodel({}, 'secret')
 

@@ -1,7 +1,7 @@
 var m = require('mithril')
 
 function mithrilDeepCopy (obj) {
-  var result = {}
+  var result = Array.isArray(obj) ? [] : {}
 
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
