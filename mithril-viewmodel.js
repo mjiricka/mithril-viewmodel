@@ -1,5 +1,6 @@
 var m = require('mithril')
 
+
 function mithrilDeepCopy (obj) {
   var result = Array.isArray(obj) ? [] : {}
 
@@ -26,8 +27,11 @@ function mithrilDeepCopy (obj) {
 }
 
 
+// Each viewmodel has its own number to prevent collisions in case user
+// uses two viewmodels for one model.
 var viewmodelCounter = 0
 
+// Main viewmodel function.
 function viewmodel (vmDefaults, propName) {
   propName = propName || viewmodel.propName.replace('%', viewmodelCounter++)
 
@@ -64,6 +68,7 @@ function viewmodel (vmDefaults, propName) {
   return f
 }
 
+// Pattern for property name, % is a placeholder.
 viewmodel.propName = '__viewmodel_%__'
 
 
