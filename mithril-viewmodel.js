@@ -8,16 +8,16 @@ function mithrilDeepCopy (obj) {
       var prop = obj[key]
 
       switch (typeof prop) {
-        case 'function':
-          // All function should be m.prop instances.
-          result[key] = m.prop(prop())
-          break
-        case 'object':
-          result[key] = mithrilDeepCopy(prop)
-          break
-        default:
-          // Simply copy the value.
-          result[key] = prop
+      case 'function':
+        // All functions should be m.prop instances.
+        result[key] = m.prop(prop())
+        break
+      case 'object':
+        result[key] = mithrilDeepCopy(prop)
+        break
+      default:
+        // Simply copy the value.
+        result[key] = prop
       }
     }
   }
@@ -56,7 +56,7 @@ function viewmodel (vmDefaults, propName) {
 
     return viewmodelObj
   }
-};
+}
 
 viewmodelFuncObj = viewmodel
 viewmodel.propName = '__viewmodel_%__'
