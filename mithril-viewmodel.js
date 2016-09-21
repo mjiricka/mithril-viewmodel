@@ -57,8 +57,8 @@
         Object.defineProperty(model, propName, {
           value: viewmodelObj,
           enumerable: false,
-          writable: true,
-          //configurable: true
+          writable: false,
+          configurable: true
         })
       }
 
