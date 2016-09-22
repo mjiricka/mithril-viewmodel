@@ -90,7 +90,7 @@ describe('Viewmodel', function () {
     vm(model)
 
     var props = []
-    for (p in model) {
+    for (var p in model) {
       props.push(p)
     }
 
