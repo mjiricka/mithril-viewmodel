@@ -1,8 +1,19 @@
-;(function () {
+;(function (root, factory) {  // eslint-disable-line
+  // Making module available as AMS, CommonJS and for browser.
+  /* eslint-disable no-undef */
+  if (typeof define === 'function' && define.amd) {
+    define(['mithril'], function (m) {
+      return (function () { return factory(m) })
+    })
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = factory(require('mithril'))
+  } else {
+    root['mithril-viewmodel'] = factory(root.m)
+  }
+  /* eslint-enable no-undef */
+}(this, function(m) {
   'use strict'
-
-  var m = require('mithril')
-
+  // Start of module definition.
 
   function mithrilDeepCopy (obj) {
     var result = Array.isArray(obj) ? [] : {}
@@ -76,7 +87,11 @@
   viewmodel.propName = '__viewmodel_%__'
 
 
-  module.exports = viewmodel
+  return viewmodel
+}));  // eslint-disable-line
 
-})();
+
+//;(function () {
+
+//})();
 
