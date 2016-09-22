@@ -53,6 +53,8 @@
       throw Error('Viewmodel defaults object must be a JS object.')
     }
 
+    // Function for mapping from models to viewmodels. It works
+    // also as a namespace (see 'destoroy' function below).
     var f = function (model) {
       if (typeof model !== 'object') {
         throw Error('Model must be a JS object.')
@@ -76,6 +78,7 @@
       return viewmodelObj
     }
 
+    // Removes the viewmodel mapping.
     f.destroy = function (model) {
       delete model[propName]
     }
@@ -89,9 +92,4 @@
 
   return viewmodel
 }));  // eslint-disable-line
-
-
-//;(function () {
-
-//})();
 
