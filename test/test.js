@@ -1,12 +1,10 @@
-//var assert = require('assert')
+/* global describe:false, it:false */
+
+var chai = this.chai || require('chai')
+var assert = chai.assert
 var m = this.m || require('mithril')
 var viewmodel = this['mithril-viewmodel'] || require('../mithril-viewmodel')
 
-function assert (b) {
-  if (! b) {
-    throw Error('error!')
-  }
-}
 
 describe('Viewmodel', function () {
   it('should return given default values', function () {
@@ -167,26 +165,17 @@ describe('Viewmodel', function () {
   })
 
   it('throws error when user does not pass object', function () {
-    var error = false
-
-    try {
+    assert.throws(function () {
       viewmodel()
-      error = true
-    } catch (ex) { }
-
-    assert(error === false)
+    }, Error)
   })
 
   it('throws error when user does not pass object as model', function () {
-    var error = false
     var vm = viewmodel({})
 
-    try {
+    assert.throws(function () {
       vm()
-      error = true
-    } catch (ex) { }
-
-    assert(error === false)
+    }, Error)
   })
 
   it('can destroy viewmodel', function () {
