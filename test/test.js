@@ -1,6 +1,12 @@
-var assert = require('assert')
-var m = require('mithril')
-var viewmodel = require('../mithril-viewmodel')
+//var assert = require('assert')
+var m = this.m || require('mithril')
+var viewmodel = this['mithril-viewmodel'] || require('../mithril-viewmodel')
+
+function assert (b) {
+  if (! b) {
+    throw Error('error!')
+  }
+}
 
 describe('Viewmodel', function () {
   it('should return given default values', function () {
